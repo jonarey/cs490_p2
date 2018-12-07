@@ -13,11 +13,13 @@ class Node:
         self.val
         self.edges = []
 
+
 class Edge:
-    def __init__(self, val):
-        self.val
-        self.startid
-        self.endid
+    def __init__(self, val, startid, endid):
+        self.val = val
+        self.startid = startid
+        self.endid = endid
+
 
 class Graph:
     def __init__(self, edges=[]):
@@ -44,7 +46,7 @@ def read_input():
                             item['geometry']['x'], item['geometry']['y']))
 
 
-#read_input()
+# read_input()
 
 # create the graph
 graph = Graph()
