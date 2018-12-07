@@ -3,7 +3,7 @@
 
 import json
 import sys
-from collections import defaultdict 
+from collections import defaultdict
 
 controllers = []
 json_data = ""
@@ -35,32 +35,32 @@ class Graph:
         # add both nodes to the list of edges for each node
         self.graph[start].append(end)
 
-#finds the index of the input key
-    def find_index(self,key):
-        i = 0 
+# finds the index of the input key
+    def find_index(self, key):
+        i = 0
         for node_id in self.graph:
             if key == node_id:
-                self.curr_index = i;
-                #print i,
+                self.curr_index = i
+                # print i,
             else:
-                i+= 1
+                i += 1
 
-    def dfs_travel(self,start,visited):
-        
-        #finds index of node 
+    def dfs_travel(self, start, visited):
+
+        # finds index of node
         self.find_index(start)
         visited[self.curr_index] = True
         print start,
         for i in self.graph[start]:
-            #if not visited search
+            # if not visited search
             self.find_index(i)
             if visited[self.curr_index] == False:
-                self.dfs_travel(i,visited)
+                self.dfs_travel(i, visited)
 
-    def dfs(self,start):
-        #create array of false visited for graph
+    def dfs(self, start):
+        # create array of false visited for graph
         visited = [False]*(len(self.graph))
-        self.dfs_travel(start,visited)
+        self.dfs_travel(start, visited)
 
 
 def read_input():
@@ -87,9 +87,9 @@ for row in stuff['rows']:
     json_graph.add_edge(row['fromGlobalId'], row['toGlobalId'])
     # new_edge.end = row['toGlobalId']
     # new_edge.start = row['fromGlobalId']
-    #graph.add_edge(new_edge)
-    #print(row['fromGlobalId'] + " " + row['toGlobalId'])
-    #print(new_edge.val + " " + new_edge.startid + " " + new_edge.endid)
+    # graph.add_edge(new_edge)
+    # print(row['fromGlobalId'] + " " + row['toGlobalId'])
+    # print(new_edge.val + " " + new_edge.startid + " " + new_edge.endid)
 print("Upstream Path (DFS)")
 json_graph.dfs("{68166019-ACD0-4F1F-985D-3662839E07D2}")
 json_graph.find_index('{B6FA6D95-13A4-48BE-8712-A6C3068DDF57}')
