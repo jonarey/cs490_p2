@@ -55,9 +55,9 @@ infile = open("SampleDataset1/SampleDataset1.json", 'r')
 stuff = json.load(infile)
 for row in stuff['rows']:
     # add the edges
-    new_edge = Edge(row['viaGlobalId'],row['fromGlobalId'],row['toGlobalId'])
-    #new_edge.end = row['toGlobalId']
-    #new_edge.start = row['fromGlobalId']
+    new_edge = Edge(row['viaGlobalId'], row['fromGlobalId'], row['toGlobalId'])
+    # new_edge.end = row['toGlobalId']
+    # new_edge.start = row['fromGlobalId']
     graph.add_edge(new_edge)
     print(new_edge.val + " " + new_edge.startid + " " + new_edge.endid)
 
