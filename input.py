@@ -37,6 +37,7 @@ class Graph:
 
     def dfs_travel(self,start,visited):
         #mark curr as visited
+        print start,
         visited[start] = True
         print start,
         for i in self.graph[start]:
@@ -74,5 +75,7 @@ for row in stuff['rows']:
     # new_edge.end = row['toGlobalId']
     # new_edge.start = row['fromGlobalId']
     #graph.add_edge(new_edge)
+    print(row['fromGlobalId'] + " " + row['toGlobalId'])
     #print(new_edge.val + " " + new_edge.startid + " " + new_edge.endid)
-json_graph.dfs("B6FA6D95-13A4-48BE-8712-A6C3068DDF57")
+json_graph.dfs('155BC438-029D-464E-83CF-6D7898C1AE05')
+#json_graph.dfs('B6FA6D95-13A4-48BE-8712-A6C3068DDF57')
