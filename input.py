@@ -5,6 +5,7 @@ import json
 import sys
 
 controllers = []
+json_data = ""
 
 
 class Node:
@@ -14,8 +15,8 @@ class Node:
 
 
 class Graph:
-    def __init__(self, nodes=[]):
-        self.nodes = nodes  # init a list of nodes
+    def __init__(self, edges=[]):
+        self.edges = edges  # init a list of nodes
 
     def add_node(self, node):
         new_n = Node(node)  # create a new node
@@ -28,13 +29,12 @@ class Graph:
 
 
 def read_input():
-    inputstr = ""  # init str
-    with open("SampleDataset1/SampleDataset1.json", 'r') as file:
-        inputstr = file.read()  # read in the file
+    inputstr = "SampleDataset1/SampleDataset1.json"  # init str
+    in_file = open(inputstr, 'r')
 
-    json_str = json.load(inputstr)  # load in the json
+    json_data = json.load(in_file)  # load in the json
 
-    for item in json_str['controllers']:
+    for item in json_data['controllers']:
         controllers.append((item['assetGroupName'], item['globalId'],
                             item['geometry']['x'], item['geometry']['y']))
 
@@ -44,15 +44,10 @@ read_input()
 # create the graph
 graph = Graph()
 
-for row in json_str['rows']:
-    # add the node
+for row in json_data['rows']:
+    # add the edges
     node_one = row['toGlobalId']
     node_two = row['fromGlobalId']
-    graph.add_node(node_one, node_two)
+    graph.add_edge(node_one, node_two)
 
-    # add the edges
-    edges = row['viaGeometry']
-    edges = edges.get('paths')
-    if edges != None:
-        edges = edges[0]
-        edges = [g.add_edge(x[0], x[1]) for x in edges]
+
