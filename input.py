@@ -30,4 +30,10 @@ def read_input():
     with open("SampleDataset1/SampleDataset1.json", 'r') as file:
         inputstr = file.read()  # read in the file
 
-    json_str = json.loads(inputstr)  # load in the json
+    json_str = json.load(inputstr)  # load in the json
+
+    controllers = []
+    for item in json_str['controllers']:
+        controllers.append((item['assetGroupName'], item['globalId'],
+                            item['geometry']['x'], item['geometry']['y']))
+
