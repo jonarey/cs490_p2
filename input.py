@@ -4,6 +4,8 @@
 import json
 import sys
 
+controllers = []
+
 
 class Node:
     __init__(self, val):
@@ -32,8 +34,6 @@ def read_input():
 
     json_str = json.load(inputstr)  # load in the json
 
-    controllers = []
     for item in json_str['controllers']:
         controllers.append((item['assetGroupName'], item['globalId'],
                             item['geometry']['x'], item['geometry']['y']))
-
