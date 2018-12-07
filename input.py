@@ -13,6 +13,11 @@ class Node:
         self.val
         self.edges = []
 
+class Edge:
+    def __init__(self, val):
+        self.val
+        self.startid
+        self.endid
 
 class Graph:
     def __init__(self, edges=[]):
@@ -22,10 +27,10 @@ class Graph:
         new_n = Node(node)  # create a new node
         self.nodes.append(new_n)  # add the node to the list
 
-    def add_edge(self, n1, n2):
+    def add_edge(self, new_e):
         # add both nodes to the list of edges for each node
-        n1.edges.append(n2)
-        n2.edges.append(n1)
+        self.edges.append(new_e)
+        #n2.edges.append(n1)
 
 
 def read_input():
@@ -39,15 +44,18 @@ def read_input():
                             item['geometry']['x'], item['geometry']['y']))
 
 
-read_input()
+#read_input()
 
 # create the graph
 graph = Graph()
 
-for row in json_data['rows']:
+infile = open("SampleDataset1/SampleDataset1.json", 'r')
+stuff = json.load(infile)
+for row in stuff['rows']:
     # add the edges
-    node_one = row['toGlobalId']
-    node_two = row['fromGlobalId']
-    graph.add_edge(node_one, node_two)
+    new_edge = Edge(row['viaGlobalId'])
+    new_edge.end = row['toGlobalId']
+    new_edge.start = row['fromGlobalId']
+    graph.add_edge(new_edge)
 
 
