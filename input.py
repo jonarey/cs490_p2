@@ -59,5 +59,5 @@ for row in stuff['rows']:
     #new_edge.end = row['toGlobalId']
     #new_edge.start = row['fromGlobalId']
     graph.add_edge(new_edge)
-
+    print(new_edge.val)
 
