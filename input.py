@@ -1,5 +1,6 @@
 # date:     11/22/2018
 # purpose:  for reading and storing the input data
+# authors:  Taylor Dowdy, Jonathan Reynoalds, Niamke Dozier
 
 import json
 import sys
@@ -73,13 +74,35 @@ def read_input():
         controllers.append((item['assetGroupName'], item['globalId'],
                             item['geometry']['x'], item['geometry']['y']))
 
+# cmd line inputs
+json_file = ""
+start_file = ""
+if len(sys.argv) < 3:
+    print("Please provide 2 files: a json file for input, and a text file with starting points")
+    print("Usage: python2 input.py input.json startpoints.txt")
+    exit(2)
+else:
+    json_file = sys.argv[1]
+    start_file = sys.argv[2]
 
-# read_input()
+try:
+    infile = open(json_file, 'r')
+except:
+    print("Please correct the path to the JSON file.")
+    exit(3)
+
+# get the start node
+start_point = ""
+try:
+    with open(start_file, 'r') as f:
+        start_point = f.readline()  # get the first line
+    start_point.strip()  # clean it
+except:
+    print("Please enter a valid path to the text file.")
+    exit(4)
 
 # create the graph
 json_graph = Graph()
-
-infile = open("SampleDataset1/SampleDataset1.json", 'r')
 stuff = json.load(infile)
 for row in stuff['rows']:
     # add the edges
@@ -90,6 +113,7 @@ for row in stuff['rows']:
     # graph.add_edge(new_edge)
     # print(row['fromGlobalId'] + " " + row['toGlobalId'])
     # print(new_edge.val + " " + new_edge.startid + " " + new_edge.endid)
+
 print("Upstream Path (DFS)")
-json_graph.dfs("{68166019-ACD0-4F1F-985D-3662839E07D2}")
+json_graph.dfs("{" + start_point + "}")
 json_graph.find_index('{B6FA6D95-13A4-48BE-8712-A6C3068DDF57}')
