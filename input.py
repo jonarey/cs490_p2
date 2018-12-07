@@ -8,7 +8,7 @@ controllers = []
 
 
 class Node:
-    __init__(self, val):
+    def __init__(self, val):
         self.val
         self.edges = []
 
@@ -37,3 +37,22 @@ def read_input():
     for item in json_str['controllers']:
         controllers.append((item['assetGroupName'], item['globalId'],
                             item['geometry']['x'], item['geometry']['y']))
+
+
+read_input()
+
+# create the graph
+graph = Graph()
+
+for row in json_str['rows']:
+    # add the node
+    node_one = row['toGlobalId']
+    node_two = row['fromGlobalId']
+    graph.add_node(node_one, node_two)
+
+    # add the edges
+    edges = row['viaGeometry']
+    edges = edges.get('paths')
+    if edges != None:
+        edges = edges[0]
+        edges = [g.add_edge(x[0], x[1]) for x in edges]
